@@ -150,7 +150,8 @@ LDLIBS += crypto ssl
 endif
 
 ifeq ($(CONFIG_SSL_IMPL_WOLFSSL),y)
-KBUILD_CPPFLAGS += -I/usr/include/wolfssl -DOPENSSL_ALL -DWOLFSSL_APACHE_HTTPD
+# Tested with: ./configure --enable-opensslall --enable-apachehttpd --enable-psk && make && sudo make install
+KBUILD_CPPFLAGS += -I/usr/include/wolfssl -I/usr/local/include/wolfssl
 LDLIBS += wolfssl
 else ifeq ($(CONFIG_PKCS11),y)
 LDLIBS += wolfssl

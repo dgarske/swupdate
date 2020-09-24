@@ -415,12 +415,15 @@ static size_t channel_callback_headers(char *buffer, size_t size, size_t nitems,
 	info[size * nitems] = '\0';
 	p = memchr(info, ':', size * nitems);
 	if (p) {
+		char* tmpNl;
 		*p = '\0';
 		key = info;
 		val = p + 1; /* Next char after ':' */
 		while(isspace((unsigned char)*val)) val++;
 		/* Remove '\n' from header's value. */
-		*strchrnul(val, '\n') = '\0';
+		tmpNl = strchrnul(val, '\n');
+		if (tmpNl)
+			*tmpNl = '\0';
 		/* For multiple same-key headers, only the last is saved. */
 		dict_set_value(dict, key, val);
 		TRACE("Header processed: %s : %s", key, val);

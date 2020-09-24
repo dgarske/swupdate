@@ -19,8 +19,14 @@
 #if defined(CONFIG_HASH_VERIFY) || defined(CONFIG_ENCRYPTED_IMAGES) || \
 	defined(CONFIG_CHANNEL_CURL_SSL)
 
+#ifdef CONFIG_SSL_IMPL_WOLFSSL
+#ifndef WOLFSSL_USER_SETTINGS
+	#include <wolfssl/options.h>
+#endif
+#include <wolfssl/wolfcrypt/settings.h>
+#endif
+
 #ifdef CONFIG_PKCS11
-#include <wolfssl/options.h>
 #include <wolfssl/wolfcrypt/aes.h>
 #include <wolfssl/wolfcrypt/wc_pkcs11.h>
 // Exclude p11-kit's pkcs11.h to prevent conflicting with wolfssl's
