@@ -34,6 +34,12 @@
 #include <systemd/sd-daemon.h>
 #endif
 
+#ifndef MSG_NOSIGNAL
+#ifdef __MACH__
+#define MSG_NOSIGNAL 0
+#endif
+#endif
+
 struct progress_conn {
 	SIMPLEQ_ENTRY(progress_conn) next;
 	int sockfd;

@@ -15,6 +15,9 @@
 #include <sys/stat.h>
 #if defined(__linux__)
 #include <linux/types.h>
+#elif defined(__MACH__)
+#include <stdint.h>
+typedef uint64_t __u64;
 #endif
 #include <compat.h>
 #include <limits.h>

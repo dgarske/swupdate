@@ -397,6 +397,17 @@ static int channel_callback_xferinfo_legacy(void *p, double dltotal, double dlno
 					 (curl_off_t)ultotal, (curl_off_t)ulnow);
 }
 
+#ifdef __MACH__
+char* strchrnul(const char *s, int c_in)
+{
+  char c = c_in;
+  while (*s && (*s != c))
+    s++;
+
+  return (char *) s;
+}
+#endif
+
 static size_t channel_callback_headers(char *buffer, size_t size, size_t nitems, void *userdata)
 {
 	struct dict *dict = (struct dict *)userdata;
